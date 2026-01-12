@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 
-<GridPane fx:id="grid"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.game_battle_sheep.HelloController"
-          alignment="CENTER"
-          hgap="2"
-          vgap="2">
-</GridPane>
+<VBox spacing="10" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.game_battle_sheep.HelloController">
+
+    <Label fx:id="statusLabel" text="Tirs : 0"/>
+
+    <GridPane fx:id="gridPane"/>
+
+    <Button text="Rejouer" onAction="#resetGame"/>
+</VBox>

@@ -2,20 +2,24 @@ package com.example.game_battle_sheep.model;
 
 public class Cell {
 
-    private boolean hasShip;
     private boolean shot;
+    private Ship ship;
 
     public Cell() {
-        this.hasShip = false;
-        this.shot = false;
+        shot = false;
+        ship = null;
     }
 
-    public boolean hasShip()  {
-        return hasShip;
+    public boolean hasShip() {
+        return ship != null;
     }
 
-    public void setShip(boolean hasShip) {
-        this.hasShip = hasShip;
+    public void setShip(Ship ship) {
+        this.ship = ship;
+    }
+
+    public Ship getShip() {
+        return ship;
     }
 
     public boolean isShot() {
@@ -23,6 +27,6 @@ public class Cell {
     }
 
     public void shoot() {
-        this.shot = true;
+        shot = true;
     }
 }
