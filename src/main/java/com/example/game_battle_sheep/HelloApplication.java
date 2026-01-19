@@ -9,14 +9,19 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         FXMLLoader loader = new FXMLLoader(
-                HelloApplication.class.getResource("/com/example/game_battle_sheep/hello-view.fxml")
+                HelloApplication.class.getResource(
+                        "/com/example/game_battle_sheep/hello-view.fxml"
+                )
         );
+
         Scene scene = new Scene(loader.load(), 500, 550);
 
-        // Ajouter le CSS depuis resources
         scene.getStylesheets().add(
-                HelloApplication.class.getResource("/com/example/game_battle_sheep/style.css").toExternalForm()
+                HelloApplication.class.getResource(
+                        "/com/example/game_battle_sheep/style.css"
+                ).toExternalForm()
         );
 
         stage.setTitle("JavaFleet");

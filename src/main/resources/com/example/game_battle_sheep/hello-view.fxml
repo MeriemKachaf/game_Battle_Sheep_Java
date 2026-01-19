@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<VBox spacing="10" alignment="CENTER"
+<VBox spacing="10"
+      alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.game_battle_sheep.HelloController">
 
@@ -14,4 +15,5 @@
     <GridPane fx:id="gridPane"/>
 
     <Button text="Rejouer" onAction="#resetGame"/>
+
 </VBox>

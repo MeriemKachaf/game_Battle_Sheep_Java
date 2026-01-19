@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class HelloController {
@@ -16,20 +18,39 @@ public class HelloController {
     @FXML
     private Label statusLabel;
 
-    private Grid gameGrid = new Grid();
-    private int shots = 0;
+    private Grid gameGrid;
+    private int shots;
+
+    private Image greenImage;
+    private Image sheepImage;
 
     @FXML
     public void initialize() {
-        createGrid();
-        statusLabel.setText("Tirs : 0");
+
+        greenImage = new Image(
+                getClass().getResourceAsStream("/images/green.png")
+        );
+
+        sheepImage = new Image(
+                getClass().getResourceAsStream("/images/sheep.jpg")
+        );
+
+        resetGame();
     }
 
     private void createGrid() {
         for (int row = 0; row < 10; row++) {
             for (int col = 0; col < 10; col++) {
-                Button button = new Button(" ");
+
+                Button button = new Button();
                 button.setPrefSize(40, 40);
+
+                ImageView imageView = new ImageView(greenImage);
+                imageView.setFitWidth(32);
+                imageView.setFitHeight(32);
+                imageView.setPreserveRatio(true);
+
+                button.setGraphic(imageView);
 
                 int r = row;
                 int c = col;
@@ -41,26 +62,17 @@ public class HelloController {
     }
 
     private void handleShot(Button button, int row, int col) {
+
         ShotResult result = gameGrid.shoot(row, col);
         shots++;
 
-        button.setDisable(true);
-        button.getStyleClass().removeAll("plouf", "touche", "touche_coule");
+        ImageView imageView = new ImageView(sheepImage);
+        imageView.setFitWidth(32);
+        imageView.setFitHeight(32);
+        imageView.setPreserveRatio(true);
 
-        switch (result) {
-            case PLOUF -> {
-                button.setText("🌊");
-                button.getStyleClass().add("plouf");
-            }
-            case TOUCHE -> {
-                button.setText("🔥");
-                button.getStyleClass().add("touche");
-            }
-            case TOUCHE_COULE -> {
-                button.setText("💥");
-                button.getStyleClass().add("touche_coule");
-            }
-        }
+        button.setGraphic(imageView);
+        button.setDisable(true);
 
         statusLabel.setText("Tirs : " + shots + " | " + result);
 
