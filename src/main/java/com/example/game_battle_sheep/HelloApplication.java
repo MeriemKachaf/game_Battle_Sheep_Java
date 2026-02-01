@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
                 )
         );
 
-        Scene scene = new Scene(loader.load(), 500, 550);
+        Scene scene = new Scene(loader.load(), 520, 600);
 
         scene.getStylesheets().add(
                 HelloApplication.class.getResource(
@@ -24,7 +24,7 @@ public class HelloApplication extends Application {
                 ).toExternalForm()
         );
 
-        stage.setTitle("JavaFleet");
+        stage.setTitle("Battle Sheep 🐑");
         stage.setScene(scene);
         stage.show();
     }

@@ -44,6 +44,7 @@ public class HelloController {
 
                 Button button = new Button();
                 button.setPrefSize(40, 40);
+                button.setFocusTraversable(false);
 
                 ImageView imageView = new ImageView(greenImage);
                 imageView.setFitWidth(32);
@@ -94,7 +95,7 @@ public class HelloController {
     private void resetGame() {
         gameGrid = new Grid();
         shots = 0;
-        statusLabel.setText("Nouvelle partie ! Tirs : 0");
+        statusLabel.setText("Nouvelle partie – Tirs : 0");
         gridPane.getChildren().clear();
         createGrid();
     }
