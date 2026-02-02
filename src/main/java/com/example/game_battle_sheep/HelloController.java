@@ -12,6 +12,8 @@ import javafx.scene.layout.GridPane;
 
 public class HelloController {
 
+    private static final int MAX_SHOTS = 30;
+
     @FXML
     private GridPane gridPane;
 
@@ -64,23 +66,47 @@ public class HelloController {
 
     private void handleShot(Button button, int row, int col) {
 
+        if (shots >= MAX_SHOTS || gameGrid.isGameOver()) {
+            return;
+        }
+
         ShotResult result = gameGrid.shoot(row, col);
         shots++;
 
-        ImageView imageView = new ImageView(sheepImage);
-        imageView.setFitWidth(32);
-        imageView.setFitHeight(32);
-        imageView.setPreserveRatio(true);
+        // Afficher le mouton uniquement si on touche
+        if (result == ShotResult.TOUCHE || result == ShotResult.TOUCHE_COULE) {
+            ImageView imageView = new ImageView(sheepImage);
+            imageView.setFitWidth(32);
+            imageView.setFitHeight(32);
+            imageView.setPreserveRatio(true);
+            button.setGraphic(imageView);
+        }
 
-        button.setGraphic(imageView);
         button.setDisable(true);
 
-        statusLabel.setText("Tirs : " + shots + " | " + result);
-
+        // Victoire
         if (gameGrid.isGameOver()) {
-            statusLabel.setText("🎉 VICTOIRE en " + shots + " tirs !");
+            statusLabel.setText(
+                    "🎉 VICTOIRE en " + shots + " tirs | Bateaux restants : "
+                            + gameGrid.getRemainingShips()
+            );
             disableAllButtons();
+            return;
         }
+
+        // Défaite (30 tirs)
+        if (shots >= MAX_SHOTS) {
+            statusLabel.setText(
+                    "💥 DÉFAITE ! 30 tirs utilisés | Bateaux restants : "
+                            + gameGrid.getRemainingShips()
+            );
+            disableAllButtons();
+            return;
+        }
+
+        statusLabel.setText(
+                "Tirs : " + shots + "/" + MAX_SHOTS + " | " + result
+        );
     }
 
     private void disableAllButtons() {
@@ -95,7 +121,7 @@ public class HelloController {
     private void resetGame() {
         gameGrid = new Grid();
         shots = 0;
-        statusLabel.setText("Nouvelle partie – Tirs : 0");
+        statusLabel.setText("Nouvelle partie – Tirs : 0 / 30");
         gridPane.getChildren().clear();
         createGrid();
     }
